@@ -1,724 +1,276 @@
-# 🩺 AI Medical Assistant# 🩺 AI Medical Assistant
-
-
-
-An AI-powered medical assistant that provides healthcare information through text chat and medical image analysis using multiple specialized AI agents.An AI-powered medical assistant that provides healthcare information through text chat and medical image analysis using multiple specialized AI agents.
-
-
-
-## 📋 Project Overview## 📋 Project Overview
-
-
-
-This application allows users to:This application allows users to:
-
-- Ask medical questions via text chat- Ask medical questions via text chat
-
-- Upload medical images for AI analysis- Upload medical images for AI analysis
-
-- Get responses from specialized AI agents (RAG, Web Search, Image Analysis)- Get responses from specialized AI agents (RAG, Web Search, Image Analysis)
-
-- Access medical literature and real-time health information- Access medical literature and real-time health information
-
-
-
-## 📁 Project Structure## 📁 Project Structure
-
-
-
-``````
-
-Medical-Assistant/Medical-Assistant/
-
-├── backend/                    # Python FastAPI Server├── backend/                    # Python FastAPI Server
-
-│   ├── main.py                # FastAPI application entry│   ├── main.py                # FastAPI application entry
-
-│   ├── requirements.txt       # Python dependencies│   ├── requirements.txt       # Python dependencies
-
-│   ││   │
-
-│   └── agents/               # AI Agent System│   └── agents/               # AI Agent System
-
-│       ├── agent_decision.py     # LangGraph orchestration│       ├── agent_decision.py     # LangGraph orchestration
-
-│       ├── guardrails.py         # Content safety│       ├── guardrails.py         # Content safety
-
-│       ├── medical_chat_agent.py # General medical chat│       ├── medical_chat_agent.py # General medical chat
-
-│       ││       │
-
-│       ├── rag_agent/            # Document search│       ├── rag_agent/            # Document search
-
-│       │   ├── document_retriever.py│       │   ├── document_retriever.py
-
-│       │   ├── medical_pdfs/     # Medical documents│       │   ├── medical_pdfs/     # Medical documents
-
-│       │   └── rag_db/          # ChromaDB storage│       │   └── rag_db/          # ChromaDB storage
-
-│       ││       │
-
-│       ├── vision_agents/        # Image analysis│       ├── vision_agents/        # Image analysis
-
-│       │   └── image_analysis_agent.py│       │   └── image_analysis_agent.py
-
-│       ││       │
-
-│       └── web_search/           # Real-time search│       └── web_search/           # Real-time search
-
-│           └── web_search_agent.py│           └── web_search_agent.py
-
-││
-
-└── frontend/                   # React Application└── frontend/                   # React Application
-
-    ├── package.json           # Node.js dependencies    ├── package.json           # Node.js dependencies
-
-    ├── src/    ├── src/
-
-    │   ├── App.js    │   ├── App.js
-
-    │   ├── components/    │   ├── components/
-
-    │   │   ├── ChatContainer.js    │   │   ├── ChatContainer.js
-
-    │   │   ├── ChatMessage.js    │   │   ├── ChatMessage.js
-
-    │   │   └── ChatInput.js    │   │   └── ChatInput.js
-
-    │   └── context/    │   └── context/
-
-    │       └── ChatContext.js    │       └── ChatContext.js
-
-    └── public/    └── public/
-
-``````
-
-
-
-## 🛠️ Technology Stack## 🛠️ Technology Stack
-
-
-
-### Frontend### Frontend
-
-- **React 19.2** - Frontend framework- **React 19.2** - Frontend framework
-
-- **Styled Components** - CSS-in-JS styling- **Styled Components** - CSS-in-JS styling
-
-- **React Markdown** - Markdown rendering- **React Markdown** - Markdown rendering
-
-- **React Dropzone** - File upload- **React Dropzone** - File upload
-
-- **Axios** - HTTP client- **Axios** - HTTP client
-
-
-
-### Backend### Backend
-
-- **FastAPI** - Python web framework- **FastAPI** - Python web framework
-
-- **LangGraph** - Multi-agent orchestration- **LangGraph** - Multi-agent orchestration
-
-- **Groq** - AI model inference- **Groq** - AI model inference
-
-- **ChromaDB** - Vector database- **ChromaDB** - Vector database
-
-- **Tavily** - Web search API- **Tavily** - Web search API
-
-
-
-## 🚀 How to Run## 🚀 How to Run
-
-
-
-### Prerequisites### Prerequisites
-
-- **Python 3.8+** with pip- **Python 3.8+** with pip
-
-- **Node.js 16+** with npm- **Node.js 16+** with npm
-
-
-
-### 1. Clone Repository### 1. Clone Repository
-
-```bash```bash
-
-git clone <repository-url>git clone <repository-url>
-
-cd Medical-Assistantcd Medical-Assistant
-
-``````
-
-
-
-### 2. Backend Setup### 2. Backend Setup
-
-```bash```bash
-
-# Create virtual environment# Create virtual environment
-
-python -m venv .venvpython -m venv .venv
-
-
-
-# Activate virtual environment# Activate virtual environment
-
-# Windows:# Windows:
-
-.venv\Scripts\activate.venv\Scripts\activate
-
-# macOS/Linux:# macOS/Linux:
-
-source .venv/bin/activatesource .venv/bin/activate
-
-
-
-# Install dependencies# Install dependencies
-
-pip install -r requirements.txtpip install -r requirements.txt
-
-
-
-# Create .env file in backend folder# Create .env file in backend folder
-
-cd backendcd backend
-
-# Add your API keys to .env:# Add your API keys to .env:
-
-# GROQ_API_KEY=your_groq_api_key# GROQ_API_KEY=your_groq_api_key
-
-# TAVILY_API_KEY=your_tavily_api_key# TAVILY_API_KEY=your_tavily_api_key
-
-# LLM_MODEL_NAME=llama-3.3-70b-versatile# LLM_MODEL_NAME=llama-3.3-70b-versatile
-
-
-
-# Start backend# Start backend
-
-uvicorn main:app --reload --host 127.0.0.1 --port 8000uvicorn main:app --reload --host 127.0.0.1 --port 8000
-
-``````
-
-
-
-### 3. Frontend Setup### 3. Frontend Setup
-
-```bash```bash
-
-# In new terminal# In new terminal
-
-cd frontendcd frontend
-
-
-
-# Install dependencies# Install dependencies
-
-npm installnpm install
-
-
-
-# Start frontend# Start frontend
-
-npm startnpm start
-
-``````
-
-
-
-### 4. Access Application### 4. Access Application
-
-- **Frontend**: `http://localhost:3000`- **Frontend**: `http://localhost:3000`
-
-- **Backend API**: `http://127.0.0.1:8000`- **Backend API**: `http://127.0.0.1:8000`
-
-- **API Docs**: `http://127.0.0.1:8000/docs`- **API Docs**: `http://127.0.0.1:8000/docs`
-
-
-
-### API Keys Required### API Keys Required
-
-- **Groq API**: [https://groq.com](https://groq.com) (for AI models)- **Groq API**: [https://groq.com](https://groq.com) (for AI models)
-
-- **Tavily API**: [https://tavily.com](https://tavily.com) (for web search)- **Tavily API**: [https://tavily.com](https://tavily.com) (for web search)
-- **Node.js 16+** with npm
-- **Git** for cloning
+# 🏥 Multi-Agentic Medical Assistant
+
+A cutting-edge AI-powered medical assistant that leverages multiple specialized agents to provide comprehensive healthcare support through text and image analysis.
+
+## 🌟 Features
+
+### Core Functionalities
+- **💬 Conversational Medical Chat**: Natural language medical consultations with LLM-powered responses
+- **🔍 RAG-based Knowledge Retrieval**: Access to medical document database for accurate information
+- **🌐 Real-time Web Search**: Latest medical research and treatment information via Tavily API
+- **🖼️ Medical Image Analysis**: Advanced AI-powered analysis of medical images (X-rays, MRIs, CT scans, etc.)
+- **🛡️ Content Safety Guardrails**: Built-in safety mechanisms to ensure appropriate medical guidance
+- **💾 Session Memory**: Persistent conversation history for contextual interactions
+
+### Multi-Agent Architecture
+- **Agent Decision Router**: Intelligently routes queries to the most appropriate specialist agent
+- **Conversation Agent**: Handles general health queries and medical discussions
+- **RAG Agent**: Retrieves information from curated medical document databases
+- **Web Search Agent**: Searches for latest research and treatment protocols
+- **Vision Agent**: Analyzes medical images with detailed diagnostic insights
+- **Guardrails Agent**: Ensures safe and appropriate medical content
+
+## 🚀 Tech Stack
+
+### Backend
+- **Framework**: FastAPI (Python)
+- **AI/ML**: 
+  - LangChain & LangGraph for agent orchestration
+  - Groq API for LLM inference (Llama 3.3 70B)
+  - HuggingFace Transformers for embeddings
+  - ChromaDB for vector storage
+- **External APIs**:
+  - Tavily Search for web research
+  - Groq Vision API for image analysis
+- **Core Libraries**:
+  - Pydantic for data validation
+  - Python-dotenv for environment management
+  - PyPDF2 for document processing
+  - Pillow for image processing
+
+### Frontend
+- **Framework**: React 18+ with Hooks
+- **Styling**: Styled-components
+- **UI Components**: 
+  - React Dropzone for file uploads
+  - React Icons for iconography
+  - React Markdown for rich text rendering
+- **HTTP Client**: Axios for API communication
+- **Build Tool**: Create React App
+
+### Database & Storage
+- **Vector Database**: ChromaDB for semantic search
+- **Session Storage**: In-memory chat history
+- **File Storage**: Temporary image processing
+
+## 📋 Prerequisites
+
+- **Python**: 3.8 or higher
+- **Node.js**: 16.0 or higher
+- **npm**: 8.0 or higher
+- **API Keys**: 
+  - Groq API key (for LLM inference)
+  - Tavily API key (for web search)
+
+## 🛠️ Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd Medical-Assistant
+git clone https://github.com/Amit-iitg/Multi-Agentic-Medical-Assistant.git
+cd Multi-Agentic-Medical-Assistant
 ```
 
 ### 2. Backend Setup
 
 #### Install Python Dependencies
 ```bash
-# Create and activate virtual environment
-python -m venv .venv
-
-# Windows
-.venv\Scripts\activate
-
-# macOS/Linux
-source .venv/bin/activate
-
-# Install packages
+cd backend
 pip install -r requirements.txt
 ```
 
-#### Configure API Keys
-Create `backend/.env` file:
-```env
+#### Configure Environment Variables
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env file with your API keys
+# Required variables:
 GROQ_API_KEY=your_groq_api_key_here
 TAVILY_API_KEY=your_tavily_api_key_here
 LLM_MODEL_NAME=llama-3.3-70b-versatile
 ```
 
-**Get API Keys:**
-- **Groq API**: [https://groq.com](https://groq.com) (for AI models)
-- **Tavily API**: [https://tavily.com](https://tavily.com) (for web search)
+#### Initialize RAG Database (Optional)
+```bash
+# If you want to add custom medical documents
+python agents/rag_agent/build_rag_vectorstore.py
+```
 
 ### 3. Frontend Setup
 ```bash
-# Navigate to frontend directory
-cd frontend
-
-# Install Node.js dependencies
+cd ../frontend
 npm install
 ```
 
-### 4. Start Both Services
+## 🚀 Running the Application
 
-#### Terminal 1: Start Backend
+### Start Backend Server
 ```bash
 cd backend
-uvicorn main:app --reload --host 127.0.0.1 --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
-✅ Backend running at: `http://127.0.0.1:8000`
 
-#### Terminal 2: Start Frontend
+### Start Frontend Development Server
 ```bash
 cd frontend
 npm start
 ```
-✅ Frontend running at: `http://localhost:3000`
 
-### 5. Access the Application
-1. **Open browser**: Navigate to `http://localhost:3000`
-2. **Start chatting**: Ask medical questions or upload images
-3. **API docs**: Visit `http://127.0.0.1:8000/docs` for backend documentation
+### Access the Application
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:8000
+- **API Documentation**: http://localhost:8000/docs
 
----
+##  Configuration
 
-## � Project Structure
+### Environment Variables
 
-### **Frontend Stack**
-- **React 19.2**: Modern frontend framework with hooks and functional components
-- **Styled Components**: CSS-in-JS for component-based styling
-- **React Markdown**: Professional markdown rendering with custom components
-- **React Dropzone**: Drag-and-drop file upload with visual feedback
-- **React Icons**: Comprehensive icon library for UI elements
-- **Axios**: HTTP client for API communication
+| Variable | Description | Default | Required |
+|----------|-------------|---------|----------|
+| `GROQ_API_KEY` | Groq API key for LLM inference | - | ✅ |
+| `TAVILY_API_KEY` | Tavily API key for web search | - | ✅ |
+| `LLM_MODEL_NAME` | Groq model name | `llama-3.3-70b-versatile` | ❌ |
 
-### **Frontend Architecture & Features**
-- **ChatGPT-style Interface**: Professional chat layout that transitions from centered input to full conversation
-- **Smart Typing Animation**: New messages type character-by-character, existing messages load instantly
-- **Image Upload Flow**: Files immediately move from input to chat when sent, no duplicate display
-- **Professional Markdown**: Bold headers, proper lists, clean formatting without distracting colors
-- **Session Management**: Conversation history persisted in localStorage across browser refreshes
-- **Responsive Design**: Optimized for both desktop and mobile viewing
+### Supported Image Formats
+- JPEG/JPG
+- PNG
+- BMP
+- GIF
+- Maximum file size: 10MB
 
-### **Backend Stack**
-- **FastAPI**: REST API framework
-- **LangGraph**: Agent orchestration and workflow
-- **LangChain**: LLM integration and processing
-- **ChromaDB**: Vector database for RAG
-- **Groq**: LLM inference
-- **Tavily**: Web search API
+### Model Configuration
+- **Text Model**: Llama 3.3 70B Versatile (via Groq)
+- **Vision Model**: Meta-Llama/Llama-4-Scout-17B (via Groq)
+- **Embeddings**: sentence-transformers/all-MiniLM-L6-v2
 
-### **Key Dependencies**
-```python
-# Core Framework
-fastapi>=0.104.1
-uvicorn[standard]>=0.24.0
+## 🏗️ Project Structure
 
-# Agent Orchestration
-langgraph>=0.0.40
-langchain>=0.1.0
-langchain-core>=0.1.0
-
-# AI Models & APIs
-langchain-groq>=0.0.1
-langchain-tavily>=0.0.1
-groq>=0.4.1
-
-# Vector Database
-chromadb>=0.4.15
-sentence-transformers>=2.2.2
-
-# Document Processing
-PyPDF2>=3.0.1
-transformers>=4.35.0
+```
+├── backend/                    # FastAPI backend
+│   ├── main.py                # Main API server
+│   ├── agents/                # AI agent modules
+│   │   ├── agent_decision.py  # Main agent orchestrator
+│   │   ├── medical_chat_agent.py
+│   │   ├── guardrails.py      # Safety mechanisms
+│   │   ├── llm_loader.py      # LLM configuration
+│   │   ├── rag_agent/         # RAG implementation
+│   │   ├── vision_agents/     # Image analysis
+│   │   └── web_search/        # Web search functionality
+│   └── requirements.txt
+├── frontend/                   # React frontend
+│   ├── src/
+│   │   ├── components/        # UI components
+│   │   ├── context/          # React context
+│   │   └── App.js
+│   └── package.json
+└── README.md
 ```
 
-### **Frontend Dependencies (package.json)**
-```json
-{
-  "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "styled-components": "^6.1.19",
-    "react-markdown": "^10.1.0",
-    "react-dropzone": "^14.3.8",
-    "react-icons": "^5.5.0",
-    "axios": "^1.13.2",
-    "remark-gfm": "^4.0.1",
-    "rehype-raw": "^7.0.0"
-  }
-}
-```
+## 🔐 Security & Safety
 
-### **Configuration Requirements**
+### Content Guardrails
+- Input validation for medical appropriateness
+- Content filtering for harmful requests
+- Session-based conversation tracking
+- Image validation and sanitization
 
-Create `.env` file in `backend/` directory:
-```env
-GROQ_API_KEY=your_groq_api_key_here
-TAVILY_API_KEY=your_tavily_api_key_here
-LLM_MODEL_NAME=llama-3.3-70b-versatile
-```
+### Best Practices
+- Always verify medical information with healthcare professionals
+- Use the assistant as a supplementary tool, not primary diagnosis
+- Protect patient privacy and sensitive medical data
+- Regular API key rotation recommended
 
----
+## 🚨 Important Disclaimers
 
-## 🚀 Setup & Running
+⚠️ **Medical Disclaimer**: This AI assistant is for informational purposes only and should not replace professional medical advice, diagnosis, or treatment. Always consult qualified healthcare providers for medical concerns.
 
-### **Prerequisites**
-- **Python 3.8+** with pip
-- **Node.js 16+** with npm 
-- **API Keys**: Groq API and Tavily API (see configuration below)
+⚠️ **Data Privacy**: Do not upload images containing personal identifiable information (PII) or sensitive patient data without proper authorization.
 
-### **1. Clone Repository**
+## 🧪 Testing
+
+### Backend Tests
 ```bash
-git clone <your-repository-url>
-cd Medical-Assistant
-```
-
-### **2. Backend Setup**
-
-#### **Install Python Dependencies**
-```bash
-# Create virtual environment
-python -m venv .venv
-
-# Activate virtual environment
-# Windows:
-.venv\Scripts\activate
-# macOS/Linux:
-source .venv/bin/activate
-
-# Install all required packages
-pip install -r requirements.txt
-```
-
-#### **Configure Environment Variables**
-```bash
-# Navigate to backend directory
 cd backend
-
-# Create .env file with your API keys
-# Copy the template and add your keys:
+python test.py
 ```
 
-**Create `backend/.env` file:**
-```env
-GROQ_API_KEY=your_groq_api_key_here
-TAVILY_API_KEY=your_tavily_api_key_here
-LLM_MODEL_NAME=llama-3.3-70b-versatile
-```
-
-**Get API Keys:**
-- **Groq API**: Sign up at [https://groq.com](https://groq.com)
-- **Tavily API**: Sign up at [https://tavily.com](https://tavily.com)
-
-#### **Setup Medical Document Database (Optional)**
+### Frontend Tests
 ```bash
-# Add medical PDFs to the documents folder
-cd agents/rag_agent
-
-# Create directory and add your PDF files
-mkdir medical_pdfs
-# Copy your medical PDF files to this directory
-
-# Build the vector database
-python build_rag_vectorstore.py
-```
-
-### **3. Frontend Setup**
-
-#### **Install Node.js Dependencies**
-```bash
-# Navigate to frontend directory
 cd frontend
-
-# Install all React packages
-npm install
-
-# All required packages are already in package.json:
-# - React 19.2, Styled Components, React Markdown, etc.
+npm test
 ```
 
-### **4. Start the Application**
+### Manual Testing Checklist
+- [ ] Text-based medical queries
+- [ ] Image upload and analysis
+- [ ] Session persistence
+- [ ] Error handling
+- [ ] API response times
+- [ ] Cross-browser compatibility
 
-#### **Step 1: Start Backend Server**
-```bash
-# In one terminal window, navigate to backend
-cd backend
+## 🤝 Contributing
 
-# Start FastAPI server
-uvicorn main:app --reload --host 127.0.0.1 --port 8000
-```
-**Backend will be available at:** `http://127.0.0.1:8000`
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-#### **Step 2: Start Frontend Development Server**
-```bash
-# In another terminal window, navigate to frontend
-cd frontend
+### Development Guidelines
+- Follow PEP 8 for Python code
+- Use ESLint configuration for JavaScript
+- Add tests for new features
+- Update documentation as needed
+- Ensure all agents work correctly in isolation and integration
 
-# Start React development server
-npm start
-```
-**Frontend will be available at:** `http://localhost:3000`
+## 📄 License
 
-#### **Step 3: Access the Application**
-1. **Open your browser** and go to `http://localhost:3000`
-2. **Start chatting** with the AI medical assistant
-3. **Upload medical images** using drag-and-drop
-4. **View API documentation** at `http://127.0.0.1:8000/docs`
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-### **5. Verify Setup**
+## 🆘 Support & Troubleshooting
 
-#### **✅ Backend Health Check**
-- Visit `http://127.0.0.1:8000/docs` - should show FastAPI documentation
-- Check terminal for any error messages
-- Ensure `.env` file contains valid API keys
+### Common Issues
 
-#### **✅ Frontend Health Check**
-- Visit `http://localhost:3000` - should show the medical assistant interface
-- Check browser console for any JavaScript errors
-- Test typing a message and uploading an image
+1. **API Key Errors**
+   - Verify `.env` file exists and contains valid keys
+   - Check API key permissions and quotas
 
-#### **✅ Full Integration Test**
-1. **Send a text message**: "What are the symptoms of diabetes?"
-2. **Upload a medical image** with drag-and-drop
-3. **Verify responses** appear with proper markdown formatting
-4. **Check typing animation** works for new messages
-5. **Refresh page** and verify conversation history loads instantly
+2. **Model Loading Issues**
+   - Ensure internet connectivity for model downloads
+   - Check Groq API service status
+
+3. **Image Analysis Failures**
+   - Verify image format and size limits
+   - Check vision model availability
+
+4. **Installation Problems**
+   - Use Python 3.8+ and Node.js 16+
+   - Clear npm/pip cache if needed
+
+### Getting Help
+- Open an issue on GitHub for bugs
+- Check existing issues for solutions
+- Review API documentation for endpoint details
+
+## 🏆 Acknowledgments
+
+- LangChain team for the excellent AI framework
+- Groq for high-performance LLM inference
+- Tavily for comprehensive web search capabilities
+- HuggingFace for transformer models and embeddings
+- React community for frontend development tools
+
+## 📈 Future Roadmap
+
+- [ ] Multi-language support
+- [ ] Advanced medical specialization routing
+- [ ] Integration with medical databases (PubMed, etc.)
+- [ ] Real-time collaborative features
+- [ ] Mobile application development
+- [ ] Voice interaction capabilities
+- [ ] Integration with EHR systems
+- [ ] Advanced image annotation tools
 
 ---
 
-## 📊 Request Flow Examples
-
-### **Text Query Example**
-```
-User: "What are the symptoms of diabetes?"
-├─ Guardrails: ✅ Safe medical query
-├─ Image Detection: ❌ No image
-├─ Agent Routing: LLM selects "RAG_AGENT"
-├─ RAG Agent: 
-│  ├─ Vector search in medical documents
-│  ├─ Retrieve relevant diabetes information
-│  └─ Generate contextual response
-└─ Response: "Diabetes symptoms include frequent urination, excessive thirst..."
-```
-
-### **Image Upload Example**
-```
-User: Uploads skin lesion image + "What is this?"
-├─ Guardrails: ✅ Bypass for medical image
-├─ Image Detection: ✅ Route to IMAGE_ANALYSIS_AGENT
-├─ Image Agent:
-│  ├─ Save temporary image file
-│  ├─ AI vision analysis
-│  ├─ Medical interpretation
-│  └─ Cleanup temporary file
-└─ Response: "This appears to be a benign skin condition..."
-```
-
-### **Web Search Example**
-```
-User: "Latest COVID-19 treatment guidelines"
-├─ Guardrails: ✅ Safe medical query
-├─ Image Detection: ❌ No image
-├─ Agent Routing: LLM selects "WEB_SEARCH_PROCESSOR_AGENT"
-├─ Web Search Agent:
-│  ├─ Tavily API search
-│  ├─ Process search results
-│  └─ Summarize latest information
-└─ Response: "According to recent guidelines from CDC..."
-```
-
----
-
-## 🛡️ Safety & Guardrails
-
-### **Content Safety**
-- Pre-processing input validation
-- Medical appropriateness checking
-- Harmful content filtering
-
-### **Data Privacy**
-- Session-based memory (no persistent storage)
-- Temporary file cleanup for images
-- No personal data logging
-
-### **Error Handling**
-- Graceful fallbacks between agents
-- Comprehensive exception handling
-- User-friendly error messages
-
----
-
-## 🔧 Customization & Extension
-
-### **Adding New Agents**
-1. Create agent file in `agents/` directory
-2. Add to routing logic in `agent_decision.py`
-3. Update frontend agent list
-
-### **Modifying RAG Database**
-1. Add PDFs to `agents/rag_agent/medical_pdfs/`
-2. Run `build_rag_vectorstore.py`
-3. Vector database automatically updates
-
-### **Changing LLM Models**
-Update `.env` file:
-```env
-LLM_MODEL_NAME=your_preferred_model
-GROQ_API_KEY=your_api_key
-```
-
----
-
-## 📝 API Documentation
-
-### **Endpoints**
-
-#### **POST /chat**
-Text-only medical queries
-```json
-{
-  "message": "What causes headaches?",
-  "session_id": "unique_session_id"
-}
-```
-
-#### **POST /upload**
-Image upload with optional text
-```json
-{
-  "file": "medical_image.jpg",
-  "message": "What is this skin condition?",
-  "session_id": "unique_session_id"
-}
-```
-
-### **Response Format**
-```json
-{
-  "reply": "AI-generated medical response based on selected agent"
-}
-```
-
----
-
-## 🔧 Troubleshooting
-
-### **Common Issues**
-
-#### **Backend Won't Start**
-```bash
-# Check Python version
-python --version  # Should be 3.8+
-
-# Reinstall dependencies
-pip install -r requirements.txt
-
-# Check .env file exists with API keys
-cd backend && ls -la .env
-```
-
-#### **Frontend Won't Load**
-```bash
-# Check Node.js version
-node --version    # Should be 16+
-npm --version
-
-# Reinstall dependencies
-cd frontend && npm install
-
-# Clear npm cache if needed
-npm cache clean --force
-```
-
-#### **API Connection Issues**
-- **Backend not running**: Ensure `http://127.0.0.1:8000` is accessible
-- **CORS errors**: Check browser console, restart backend server
-- **API key errors**: Verify `.env` file contains valid Groq and Tavily keys
-
-#### **Image Upload Problems**
-- **File size**: Maximum 10MB supported
-- **File format**: JPG, PNG, GIF, BMP only
-- **Upload flow**: Images should disappear from input immediately when sent
-
-#### **UI/UX Issues**
-- **Typing animation**: New messages should animate, refresh should show all instantly
-- **Markdown rendering**: Headers should be bold, not show raw ### symbols  
-- **Scroll behavior**: New responses should show from top, not auto-scroll to bottom
-
-### **Development Tips**
-
-#### **Frontend Development**
-```bash
-# Start with hot reload
-npm start
-
-# Check for linting errors
-npm run lint
-
-# Build for production
-npm run build
-```
-
-#### **Backend Development**
-```bash
-# Start with auto-reload
-uvicorn main:app --reload
-
-# Check API docs
-# Visit: http://127.0.0.1:8000/docs
-
-# Test individual agents
-cd agents && python test.py
-```
-
----
-
-## 🎯 Project Highlights
-
-### **Advanced UI Features Implemented**
-- ✅ **ChatGPT-style Interface**: Professional chat design with smooth transitions
-- ✅ **Smart Typing Animation**: Time-based detection prevents replay on refresh  
-- ✅ **Professional Markdown**: Bold headers and clean formatting for medical content
-- ✅ **Seamless Image Upload**: Files move cleanly from input to conversation
-- ✅ **Session Persistence**: Conversation history maintained across browser sessions
-
-### **Multi-Agent Intelligence**
-- ✅ **Intelligent Routing**: Automatically selects best AI agent for each query type
-- ✅ **RAG Integration**: Search through medical literature and research papers
-- ✅ **Vision Analysis**: AI-powered medical image interpretation
-- ✅ **Real-time Research**: Access latest medical information via web search
-- ✅ **Content Safety**: Built-in guardrails for appropriate medical discussions
-
----
-
-This Medical Assistant provides an intelligent, multi-modal approach to medical query processing, ensuring users receive appropriate responses through the most suitable AI agent for their specific needs.
+**Built with ❤️ for advancing healthcare accessibility through AI**
